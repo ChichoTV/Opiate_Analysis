@@ -10,7 +10,14 @@ from sqlalchemy import *
 conn_string='tester:taylor@localhost:5432/Opiate_Analysis'
 engine= create_engine(f'postgresql://{conn_string}')
 Base=automap_base()
-
+Base.prepare(engine,reflect=True)
+print(Base.classes.keys())
+Overdoses=Base.classes.Overdoses
+Wide=Base.classes.Wide_data
+Prescriber=Base.classes.Prescriber_info
+inspector=inspect(engine)
+for item in inspector.get_columns('Wide_data'):
+    print(item['name'])
 app = Flask(__name__)
 
 @app.route("/")
@@ -24,32 +31,6 @@ def home():
         'SEPARATE EACH COLUMN IN YOUR QUERY WITH &'
     )
 
-# @app.route("/api_v1/<columns>")
-# def query(columns):
-#     data={}
-#     col_list=columns.split('&')
-#     abbrev_list=[]
-#     abbrev=engine.connect().execute(f'select "Abbrev" from "Overdoses" ')
-#      for ab in abbrev:
-#         abbrev_list.append(ab[0])
-#     try:
-#         results1=engine.connect().execute(f'select "{column1}" from "Overdoses" ')
-#         results2=engine.connect().execute(f'select "{column2}" from "Overdoses" ')
-#         res_list=[results1,results2]
-#     except:
-#         print('an error occurred')
-#     # print(abbrev_list)
-#     for res in res_list:
-#         i=0
-#         for row in res:
-#             try:
-#                 data[abbrev_list[i]].append(row[0])
-#                 i=i+1
-#             except:
-#                 data[abbrev_list[i]]=[row[0]]
-#                 i=i+1
-    
-#     return data
 
 @app.route("/api_v1/<columns>")
 def query(columns):
@@ -78,3 +59,16 @@ def query(columns):
         i=i+1
         to_return[ab]=temp
     return to_return
+
+@app.route('/tester')
+def tester():
+    ret=[]
+    session=Session(engine)
+    lists=session.query(Overdoses.State).all()
+    session.close()
+    for death in lists:
+        temp={}
+        temp["death"]=death
+        ret.append(temp)
+        print(death)
+    return 'yay'
