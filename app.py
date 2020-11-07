@@ -1,5 +1,5 @@
 # flask imports
-from flask import Flask, jsonify
+from flask import Flask, jsonify,render_template
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
@@ -11,13 +11,12 @@ conn_string='tester:taylor@localhost:5432/Opiate_Analysis'
 engine= create_engine(f'postgresql://{conn_string}')
 Base=automap_base()
 Base.prepare(engine,reflect=True)
-print(Base.classes.keys())
-Overdoses=Base.classes.Overdoses
-Wide=Base.classes.Wide_data
-Prescriber=Base.classes.Prescriber_info
 inspector=inspect(engine)
-for item in inspector.get_columns('Wide_data'):
-    print(item['name'])
+def column_grab(inp):
+    return inp['name']
+cols_wide=list(map(column_grab,inspector.get_columns('Wide_data')))
+cols_pre=list(map(column_grab,inspector.get_columns('Prescriber_info')))
+    
 app = Flask(__name__)
 
 @app.route("/")
@@ -32,7 +31,7 @@ def home():
     )
 
 
-@app.route("/api_v1/<columns>")
+@app.route("/api_v1/Overdoses/<columns>")
 def query(columns):
     data={}
     to_return={}
@@ -54,21 +53,40 @@ def query(columns):
     for ab in abbrev_list:
         temp={}
         for column in col_list:
-            # to_return[ab]=data[column][i]
             temp[column]=data[column][i]
         i=i+1
         to_return[ab]=temp
     return to_return
 
-@app.route('/tester')
-def tester():
-    ret=[]
-    session=Session(engine)
-    lists=session.query(Overdoses.State).all()
-    session.close()
-    for death in lists:
-        temp={}
-        temp["death"]=death
-        ret.append(temp)
-        print(death)
-    return 'yay'
+@app.route('/api_v1/Wide')
+def wide():
+    ret={}
+    lists=engine.connect().execute('SELECT * FROM "Wide_data"')
+    for key_name in cols_wide:
+        i=0
+        for item in lists:
+            temp={}
+            for num in range(11):
+                temp[cols_wide[num]]=item[num]
+            i=i+1
+            ret[str(i)]=temp
+    return ret
+
+
+@app.route('/home')
+def homepage():
+    return render_template('matt_index.html')
+
+@app.route('/api_v1/Prescriber')
+def prescriber():
+    ret={}
+    lists=engine.connect().execute('SELECT * FROM "Prescriber_info"')
+    for key_name in cols_pre:
+        i=0
+        for item in lists:
+            temp={}
+            for num in range(45):
+                temp[cols_pre[num]]=item[num]
+            i=i+1
+            ret[str(i)]=temp
+    return ret
