@@ -1,11 +1,11 @@
 # flask imports
-from flask import Flask, jsonify,render_template
+from flask import Flask, jsonify,render_template,Response
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func, inspect
 from sqlalchemy import *
-
+import json 
 # connection string for Taylor's DB
 conn_string='tester:taylor@localhost:5432/Opiate_Analysis'
 engine= create_engine(f'postgresql://{conn_string}')
@@ -16,10 +16,11 @@ def column_grab(inp):
     return inp['name']
 cols_wide=list(map(column_grab,inspector.get_columns('Wide_data')))
 cols_pre=list(map(column_grab,inspector.get_columns('Prescriber_info')))
+cols_agg=['Deaths','State','Year']
     
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/api_routes")
 def home():
     return (
         'Available columns:<br>'
@@ -73,7 +74,7 @@ def wide():
     return ret
 
 
-@app.route('/home')
+@app.route('/')
 def homepage():
     return render_template('matt_index.html')
 
@@ -90,3 +91,23 @@ def prescriber():
             i=i+1
             ret[str(i)]=temp
     return ret
+@app.route('/overdoses')
+def od():
+    return render_template('overdoses.html')
+@app.route('/prescriptions')
+def pre():
+    return render_template('prescriptions.html')
+@app.route('/api_v1/wide_agg')
+def agg():
+    data=engine.connect().execute('SELECT CAST( SUM("Total") AS INT) AS "sum","State","Year" FROM "Wide_data" GROUP BY "State","Year" ORDER BY "Year"')
+    ret={}
+    for key_name in cols_agg:
+        i=0
+        for item in data:
+            temp={}
+            for num in range(3):
+                temp[cols_agg[num]]=item[num]
+            i=i+1
+            ret[str(i)]=temp
+    return ret
+
