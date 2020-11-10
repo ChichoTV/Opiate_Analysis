@@ -1,11 +1,148 @@
+  
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
+    <title>Opiates Analysis</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/matt_style.css">
 </head>
+
 <body>
-    
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">USA Opiates Analysis</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Plots
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="overdoses.html">Overdoses</a>
+                            </li>
+                            <li>
+                                <a href="prescriptions.html">Prescriptions</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="data">Data</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="container">
+            <div class="col-md-12">
+                <div class="sigline">
+                    <p>
+                       | Taylot Vought, Kruti Ghandi, Matthew Quilay |
+                    </p>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container">
+        <div class="row row-grid">
+            <div class="col-md-8">
+                <div class="box box-left">
+                    <section id="intro">
+                        <h1>Summary</h1>
+                        <hr>
+                        <figure>
+                            <a target="_blank" href="Ploting_graph_of_Cities.png">
+                                <img id="viz-main" src="Ploting_graph_of_Cities.png" alt="Opiates">
+                            </a>
+                        </figure>
+
+                        <section id="summary">
+                            <p>Opiates...
+                            </p>
+
+                            <p> Opiates...
+                            </p>
+
+                            <p>
+                                Opiates...
+                            </p>
+
+                            <ul>
+                                <li>Overdoses</li>
+                                <li>Deaths</li>
+                                <li>Prescriptions</li>
+                                <li>Opiates</li>
+
+                            </ul>
+
+                        </section>
+
+                    </section>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="box box-right">
+                    <h2>Additional Visualizations</h2>
+                    <hr>
+
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-3 col-md-6">
+                            <figure>
+                                <a href="overdoses">
+                                    <img id="landing-viz" src="/static/images/BarhSingleDataSetExample_01.png" alt="Deaths by State">
+                                </a>
+                                <p style="text-align: center;">Top Drug Prescriptions</p>
+                            </figure>
+                        </div>
+
+                        <div class="col-xs-6 col-sm-3 col-md-6">
+                            <figure>
+                                <a href="prescriptions">
+                                    <img id="landing-viz" src="Humidity_Latitude.png" alt="Drug Prescriptions">
+                                </a>
+                            </figure>
+                        </div>
+
+                    </div>
+                    <div class='row'>
+                        <div class='col-md-12'>
+                            <div id="chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"crossorigin="anonymous"></script>
+    <script src="../static/plots.js" type="text/javascript"></script>
+
 </body>
+
 </html>

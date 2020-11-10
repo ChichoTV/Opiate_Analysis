@@ -76,7 +76,7 @@ def wide():
 
 @app.route('/')
 def homepage():
-    return render_template('matt_index.html')
+    return render_template('index.html')
 
 @app.route('/api_v1/Prescriber')
 def prescriber():
@@ -97,10 +97,17 @@ def od():
 @app.route('/prescriptions')
 def pre():
     return render_template('prescriptions.html')
+
+@app.route('/data')
+def data():
+    return render_template('data_routes.html')
+
+
+
 @app.route('/api_v1/Wide_agg')
 def agg():
     data=engine.connect().execute('SELECT CAST( SUM("Total") AS INT) AS "sum","State","Year" FROM "Wide_data" GROUP BY "State","Year" ORDER BY "Year"')
-    ret={}
+    ret=[]
     for key_name in cols_agg:
         i=0
         for item in data:
@@ -108,8 +115,5 @@ def agg():
             for num in range(3):
                 temp[cols_agg[num]]=item[num]
             i=i+1
-            ret[str(i)]=temp
-    return ret
-@app.route('/data')
-def data():
-    return render_template('data_routes.html')
+            ret.append(temp)
+    return jsonify(ret)
