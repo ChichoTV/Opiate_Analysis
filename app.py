@@ -97,7 +97,7 @@ def od():
 @app.route('/prescriptions')
 def pre():
     return render_template('prescriptions.html')
-@app.route('/api_v1/wide_agg')
+@app.route('/api_v1/Wide_agg')
 def agg():
     data=engine.connect().execute('SELECT CAST( SUM("Total") AS INT) AS "sum","State","Year" FROM "Wide_data" GROUP BY "State","Year" ORDER BY "Year"')
     ret={}
@@ -110,4 +110,6 @@ def agg():
             i=i+1
             ret[str(i)]=temp
     return ret
-
+@app.route('/data')
+def data():
+    return render_template('data_routes.html')
