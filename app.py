@@ -106,7 +106,7 @@ def data():
 
 @app.route('/api_v1/Wide_agg')
 def agg():
-    data=engine.connect().execute('SELECT CAST( SUM("Total") AS INT) AS "sum","State","Year" FROM "Wide_data" GROUP BY "State","Year" ORDER BY "Year"')
+    data=engine.connect().execute('SELECT CAST( SUM("Total") AS INT) AS "sum","State","Year" FROM "Wide_data" GROUP BY "State","Year" ORDER BY "State","Year"')
     ret=[]
     for key_name in cols_agg:
         i=0
