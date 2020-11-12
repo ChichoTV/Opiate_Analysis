@@ -35,5 +35,37 @@ $(document).ready(function (){
             arr.push(d)
         })
         console.log(org_data)
-        
+        var margins={
+            left:20,
+            right:20,
+            top:10,
+            bottom:10
+        }
+        var svgH=900
+        var svgW=600
+        var svg=d3.select('#chart').append('svg')
+            .attr('width',svgW)
+            .attr('height',svgH)
+        var chartW=svgW-margins.left-margins.right;
+        var chartH=svgW-margins.top-margins.bottom;
+        var chart=svg.append('g')
+            .attr('transform',`translate(${margins.left},${margins.top})`)
+        var timeP=d3.timeParse("%Y")
+        var years_parsed=years.map(y=>timeP(String(y)))
+        var xscale=d3.scaleTime()
+            .domain(d3.extent(years_parsed))
+            .range([0,chartW])
+        var yscale=d3.scaleLinear()
+            .domain(d3.extent(deaths))
+            .range([chartH,0])
+        var yaxis=d3.axisLeft(yscale)
+        var xaxis=d3.axisBottom(xscale)
+        .tickFormat(d3.timeFormat("%Y"))
+
+        chart.append("g")
+            .attr("transform", `translate(0, ${chartH})`)
+            .call(xaxis);
+        chart.append("g")
+            .call(yaxis);
+
 })})
