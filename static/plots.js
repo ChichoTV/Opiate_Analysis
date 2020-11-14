@@ -46,7 +46,8 @@ $(document).ready(function (){
         var trace={
             y:org_data[1].Alaska,
             x:years,
-            type:'line'
+            type:'line',
+            name:"Alaska"
         }
         var data=[trace]
         var layout={
