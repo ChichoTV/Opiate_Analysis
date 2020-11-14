@@ -27,16 +27,22 @@ $(document).ready(function (){
                 obj[states[j]]=arr
                 org_data.push(obj)
                 arr=[]
-                obj={}
+                // obj={}
                 j=j+1
             }
             valid=1
             i=i+1
             arr.push(d)
         })
-        var timeP=d3.timeParse("%Y")
-        var years_parsed=years.map(y=>timeP(String(y)))
-        console.log(years_parsed)
+        var timeP=d3.timeParse("%Y");
+        var years_parsed=years.map(y=>timeP(String(y)));
+        console.log(obj);
+
+        var inp_states=d3.select('#state');
+        var form=d3.select('form');
+        var button=d3.select('#filter-btn');
+        // plot functions
+        function init(){
         var trace={
             y:org_data[1].Alaska,
             x:years,
@@ -44,10 +50,35 @@ $(document).ready(function (){
         }
         var data=[trace]
         var layout={
-            title:'Alaska'
+            title:'Opioid Deaths By State'
         }
 
         Plotly.newPlot('plot',data,layout)
+    }   
+
+        // plot updater functions
+        function update(){
+            d3.event.preventDefault();
+            var inpv_states=inp_states.property('value');
+            console.log(inpv_states)
+            var inp_array=inpv_states.split(',')
+            console.log(inp_array)
+            data=[]
+            inp_array.forEach(function(d){
+                trace={
+                    x:years,
+                    y:obj[d],
+                    type:'line',
+                    name: d
+                }
+                data.push(trace);
+
+            })
+            layout={
+                title:'Opioid Deaths By State'
+            }
+            Plotly.newPlot('plot',data,layout);
+        }
         // var margins={
         //     left:40,
         //     right:20,
@@ -96,6 +127,8 @@ $(document).ready(function (){
         //     .data(temp)
         //     .append('path')
         //     .attr('d', myline)
-
+        init();
+        button.on('click',update);
+        form.on('submit',update);
 
 })})
