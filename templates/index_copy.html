@@ -98,28 +98,39 @@
 
                     </section>
                 </div>
-                <div id="plot"></div>
             </div>
 
             <div class="col-md-4">
                 <div class="box box-right">
-                    <h2>Selection</h2>
+                    <h2>Additional Visualizations</h2>
                     <hr>
+
+
                     <div class="row">
                         <div class="col-xs-6 col-sm-3 col-md-6">
-                            <div class="panel-heading">Filter Search</div>
-                            <div class="panel-body">
-                            <form>
-                            <div class="form-group">
-                            <ul class="list-group" id="filters">
-                            <li class="filter list-group-item">
-                            <label for="date">Enter States</label>
-                            <input class="form-control" id="datetime" type="text" placeholder="Alaska">
-                            </div>
+                            <figure>
+                                <a href="overdoses">
+                                    <img id="landing-viz" src="/static/images/BarhSingleDataSetExample_01.png" alt="Deaths by State">
+                                </a>
+                                <p style="text-align: center;">Top Drug Prescriptions</p>
+                            </figure>
+                        </div>
+
+                        <div class="col-xs-6 col-sm-3 col-md-6">
+                            <figure>
+                                <a href="prescriptions">
+                                    <img id="landing-viz" src="Humidity_Latitude.png" alt="Drug Prescriptions">
+                                </a>
+                            </figure>
+                        </div>
+
                     </div>
+                    
                 </div>
             </div>
+    
         </div>
+        <div id="plot"></div>
     </div>
 
 
