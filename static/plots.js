@@ -53,8 +53,7 @@ $(document).ready(function (){
         var layout={
             title:'Opioid Deaths By State'
         }
-
-        Plotly.newPlot('plot',data,layout)
+        Plotly.newPlot('plot1',data,layout)
     }   
 
         // plot updater functions
@@ -78,7 +77,7 @@ $(document).ready(function (){
             layout={
                 title:'Opioid Deaths By State'
             }
-            Plotly.newPlot('plot',data,layout);
+            Plotly.newPlot('plot1',data,layout);
         }
         // var margins={
         //     left:40,
@@ -132,4 +131,28 @@ $(document).ready(function (){
         button.on('click',update);
         form.on('submit',update);
 
-})})
+})
+})
+
+d3.json('http://127.0.0.1:5000/api_v1/percents').then(function(data){
+    console.log(data)
+    // Object.keys(data).forEach(function(st){
+    //     trace={
+    //         x:st,
+    //         y:data[st],
+    //         type:'bar',
+    //         name:st
+    //     }
+    //     to_plot.push(trace);
+    // })
+    trace={
+        x:Object.keys(data),
+        y:Object.values(data),
+        type:'bar',
+        name:'bar'
+    }
+    layout={
+        title:'Tester'
+    }
+    Plotly.newPlot('plot2',[trace],layout)
+})

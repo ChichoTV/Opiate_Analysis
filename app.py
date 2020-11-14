@@ -117,3 +117,11 @@ def agg():
             i=i+1
             ret.append(temp)
     return jsonify(ret)
+
+@app.route('/api_v1/percents')
+def percent():
+    data=engine.connect().execute('SELECT CAST( SUM("Total")/SUM("Population")*100*1000 AS FLOAT) AS "percent","State" FROM "Wide_data" GROUP BY "State" ORDER BY "State"')
+    ret={}
+    for item in data:
+        ret[item[1]]=item[0]
+    return ret
