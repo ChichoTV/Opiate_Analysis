@@ -131,8 +131,6 @@ $(document).ready(function (){
         form.on('submit',update1);
 
 })
-})
-
 d3.json('http://127.0.0.1:5000/api_v1/percents').then(function(data){
     var inp_states=d3.select('#state2');
     var form=d3.select('form');
@@ -172,3 +170,6 @@ d3.json('http://127.0.0.1:5000/api_v1/percents').then(function(data){
     button.on('click',update2);
     form.on('submit',update2);
 })
+})
+
+
