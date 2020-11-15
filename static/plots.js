@@ -37,7 +37,7 @@ $(document).ready(function (){
         console.log(obj);
 
         var inp_states=d3.select('#state1');
-        var form=d3.select('form');
+        var form=d3.select('form1');
         var button=d3.select('#filter-btn1');
         // plot functions
         function init(){
@@ -133,7 +133,7 @@ $(document).ready(function (){
 })
 d3.json('http://127.0.0.1:5000/api_v1/percents').then(function(data){
     var inp_states=d3.select('#state2');
-    var form=d3.select('form');
+    var form=d3.select('form2');
     var button=d3.select('#filter-btn2');
     console.log(data)
     trace={
@@ -149,7 +149,6 @@ d3.json('http://127.0.0.1:5000/api_v1/percents').then(function(data){
     function update2(){
         d3.event.preventDefault();
         var inpv_states=inp_states.property('value');
-        // console.log(inpv_states)
         var inp_array=inpv_states.split(',')
         var data2=[]
         inp_array.forEach(function (d){
@@ -172,4 +171,8 @@ d3.json('http://127.0.0.1:5000/api_v1/percents').then(function(data){
 })
 })
 
+$(document).on('beforeunload',function(){
+    d3.select('#state1').property('value')=''
+    d3.select('#state2').property('value')=''
+})
 
