@@ -11,13 +11,12 @@ $(document).ready(function (){
             states.push(c);
             }
         });
-        console.log(states)
+        // console.log(states)
         var i=0
         var j=0
         var arr=[]
         var obj={}
         var valid=0
-        // console.log(deaths.length)
         deaths.forEach(function(d){
             var check=i%7
             if (check==0 && valid==1||i==349){
@@ -27,7 +26,6 @@ $(document).ready(function (){
                 obj[states[j]]=arr
                 org_data.push(obj)
                 arr=[]
-                // obj={}
                 j=j+1
             }
             valid=1
@@ -38,9 +36,9 @@ $(document).ready(function (){
         var years_parsed=years.map(y=>timeP(String(y)));
         console.log(obj);
 
-        var inp_states=d3.select('#state');
+        var inp_states=d3.select('#state1');
         var form=d3.select('form');
-        var button=d3.select('#filter-btn');
+        var button=d3.select('#filter-btn1');
         // plot functions
         function init(){
         var trace={
@@ -57,27 +55,28 @@ $(document).ready(function (){
     }   
 
         // plot updater functions
-        function update(){
+        function update1(){
             d3.event.preventDefault();
             var inpv_states=inp_states.property('value');
             console.log(inpv_states)
             var inp_array=inpv_states.split(',')
-            console.log(inp_array)
-            data=[]
+            // console.log(inp_array)
+            var data1=[]
             inp_array.forEach(function(d){
-                trace={
+                trace1={
                     x:years,
                     y:obj[d],
                     type:'line',
                     name: d
                 }
-                data.push(trace);
+                data1.push(trace1);
 
             })
             layout={
                 title:'Opioid Deaths By State'
             }
-            Plotly.newPlot('plot1',data,layout);
+
+            Plotly.newPlot('plot1',data1,layout);
         }
         // var margins={
         //     left:40,
@@ -128,23 +127,17 @@ $(document).ready(function (){
         //     .append('path')
         //     .attr('d', myline)
         init();
-        button.on('click',update);
-        form.on('submit',update);
+        button.on('click',update1);
+        form.on('submit',update1);
 
 })
 })
 
 d3.json('http://127.0.0.1:5000/api_v1/percents').then(function(data){
+    var inp_states=d3.select('#state2');
+    var form=d3.select('form');
+    var button=d3.select('#filter-btn2');
     console.log(data)
-    // Object.keys(data).forEach(function(st){
-    //     trace={
-    //         x:st,
-    //         y:data[st],
-    //         type:'bar',
-    //         name:st
-    //     }
-    //     to_plot.push(trace);
-    // })
     trace={
         x:Object.keys(data),
         y:Object.values(data),
@@ -152,7 +145,30 @@ d3.json('http://127.0.0.1:5000/api_v1/percents').then(function(data){
         name:'bar'
     }
     layout={
-        title:'Tester'
+        title:"Opioid Deaths Per 100,000 People (2014)"
     }
     Plotly.newPlot('plot2',[trace],layout)
+    function update2(){
+        d3.event.preventDefault();
+        var inpv_states=inp_states.property('value');
+        // console.log(inpv_states)
+        var inp_array=inpv_states.split(',')
+        var data2=[]
+        inp_array.forEach(function (d){
+            trace2={
+                x:[d],
+                y:[data[d]],
+                type:'bar',
+                name:d
+            }
+            data2.push(trace2);
+        })
+        layout={
+            title:"Opioid Deaths Per 100,000 People (2014)"
+        }
+        Plotly.newPlot('plot2',data2,layout)
+    }
+
+    button.on('click',update2);
+    form.on('submit',update2);
 })
