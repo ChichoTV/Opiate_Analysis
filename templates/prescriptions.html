@@ -6,13 +6,30 @@
     <title>Prescriptions</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
     crossorigin="anonymous">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <link rel="stylesheet" href="../static/matt_style.css">
 </head>
 <body>
-    
+    <div class="panel-heading" style="text-align: center; font-size: larger;">Filter "Opioid Deaths By State"</div>
+                            <div class="panel-body">
+                            <form1>
+                            <div class="form-group">
+                            <ul class="list-group" id="filters">
+                            <li class="filter list-group-item">
+                            <label for="date">Enter States (Capitalized and comma separated)</label>
+                            <!-- <label for="date">Enter States (Capitalized and comma separated) PLOT 2</label> -->
+                            <input class="form-control" id="state1" type="text" placeholder="Ex:Alaska,Colorado,California">
+                            <!-- <input class="form-control" id="state2" type="text" placeholder="California"> -->
+                            <button id="filter-btn1" type="button" class="btn btn-default">Filter Plot </button>
+                            <!-- <button id="filter-btn2" type="button" class="btn btn-default">Filter Plot 2</button> -->
+                            </form1>
+                            </div>
+                            <div id="plot1"></div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
+                            <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+                            <script src="https://d3js.org/d3.v5.min.js"></script>
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+                            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"crossorigin="anonymous"></script>
+                            <script src="../static/plots.js" type="text/javascript"></script>
 </body>
 </html>
